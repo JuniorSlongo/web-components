@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alternador de Tema</title>
+<template id="alternador-tema">
+  <style>
+    :host {
+      display: block;
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+  <button id="toggle">Alternar Tema</button>
+</template>
+
+<script>
+  class AlternadorTema extends HTMLElement {
+    constructor() {
+      super();
+      const shadowRoot = this.attachShadow({mode: 'open'});
+      const template = document.getElementById('alternador-tema').content;
+      shadowRoot.appendChild(template.cloneNode(true));
+      this.btn = shadowRoot.querySelector('#toggle');
+      this.btn.addEventListener('click', () => {
+        document.body.classList.toggle('tema-escuro');
+      });
+    }
+  }
+  customElements.define('alternador-tema', AlternadorTema);
+</script>
+</head>
+<body>
+
+<alternador-tema></alternador-tema>
+
+<style>
+  body {
+    /* Estilos para o tema claro */
+    background-color: #fff;
+    color: #000;
+  }
+
+  .tema-escuro {
+    /* Estilos para o tema escuro */
+    background-color: #333;
+    color: white;
+  }
+</style>
+
+</body>
+</html>
